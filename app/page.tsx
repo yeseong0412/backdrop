@@ -40,79 +40,83 @@ export default function Home() {
       
       <main className="flex-1 container py-4 md:py-8 px-4 md:px-6">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2 text-center md:text-left">
-            {t("common.title")}
-          </h1>
-          <p className="text-muted-foreground mb-6 md:mb-8 text-center md:text-left">
-            {t("common.subtitle")}
-          </p>
+          <header className="mb-6 md:mb-8">
+            <h1 className="text-2xl md:text-3xl font-bold mb-2 text-center md:text-left">
+              {t("common.title")}
+            </h1>
+            <p className="text-muted-foreground text-center md:text-left">
+              {t("common.subtitle")}
+            </p>
+          </header>
           
-          <Tabs 
-            value={activeTab} 
-            onValueChange={setActiveTab}
-            className="space-y-4 md:space-y-6"
-          >
-            <TabsList className={cn(
-              "grid w-full",
-              isMobile ? "grid-cols-3 gap-1" : "grid-cols-3 gap-2"
-            )}>
-              <TabsTrigger 
-                value="upload" 
-                className={cn(
-                  "w-full text-xs md:text-sm",
-                  isMobile && "px-2 py-1.5"
-                )}
-              >
-                {t("common.upload")}
-              </TabsTrigger>
-              <TabsTrigger 
-                value="backgrounds" 
-                disabled={!video}
-                className={cn(
-                  "w-full text-xs md:text-sm",
-                  isMobile && "px-2 py-1.5"
-                )}
-              >
-                {t("common.backgrounds")}
-              </TabsTrigger>
-              <TabsTrigger 
-                value="preview" 
-                disabled={!video}
-                className={cn(
-                  "w-full text-xs md:text-sm",
-                  isMobile && "px-2 py-1.5"
-                )}
-              >
-                {t("common.preview")}
-              </TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="upload" className="mt-0">
-              <div className="w-full">
-                <VideoUploader onVideoUploaded={handleVideoUploaded} />
-              </div>
-            </TabsContent>
-            
-            <TabsContent value="backgrounds" className="mt-0">
-              <div className="w-full">
-                <BackgroundPanel
-                  onBackgroundChange={handleBackgroundChange}
-                  selectedBackground={processingOptions.background}
-                />
-              </div>
-            </TabsContent>
-            
-            <TabsContent value="preview" className="mt-0">
-              <div className="w-full">
-                <PreviewPanel
-                  video={video!}
-                  background={processingOptions.background}
-                  onReset={() => setVideo(null)}
-                  isProcessed={isProcessed}
-                />
-              </div>
-            </TabsContent>
-          </Tabs>
+          <section aria-label="Video Processing Steps">
+            <Tabs 
+              value={activeTab} 
+              onValueChange={setActiveTab}
+              className="space-y-4 md:space-y-6"
+            >
+              <TabsList className={cn(
+                "grid w-full",
+                isMobile ? "grid-cols-3 gap-1" : "grid-cols-3 gap-2"
+              )}>
+                <TabsTrigger 
+                  value="upload" 
+                  className={cn(
+                    "w-full text-xs md:text-sm",
+                    isMobile && "px-2 py-1.5"
+                  )}
+                >
+                  {t("common.upload")}
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="backgrounds" 
+                  disabled={!video}
+                  className={cn(
+                    "w-full text-xs md:text-sm",
+                    isMobile && "px-2 py-1.5"
+                  )}
+                >
+                  {t("common.backgrounds")}
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="preview" 
+                  disabled={!video}
+                  className={cn(
+                    "w-full text-xs md:text-sm",
+                    isMobile && "px-2 py-1.5"
+                  )}
+                >
+                  {t("common.preview")}
+                </TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="upload" className="mt-0">
+                <div className="w-full">
+                  <VideoUploader onVideoUploaded={handleVideoUploaded} />
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="backgrounds" className="mt-0">
+                <div className="w-full">
+                  <BackgroundPanel
+                    onBackgroundChange={handleBackgroundChange}
+                    selectedBackground={processingOptions.background}
+                  />
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="preview" className="mt-0">
+                <div className="w-full">
+                  <PreviewPanel
+                    video={video!}
+                    background={processingOptions.background}
+                    onReset={() => setVideo(null)}
+                    isProcessed={isProcessed}
+                  />
+                </div>
+              </TabsContent>
+            </Tabs>
+          </section>
         </div>
       </main>
       

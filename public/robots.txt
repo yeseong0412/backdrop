@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://backdrop.app/sitemap.xml
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /admin/
+
+# Allow all other routes
+Allow: /* 
