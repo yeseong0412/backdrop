@@ -7,8 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/components/ui/use-toast";
 import { ExportModal } from "@/components/export-modal";
-import { cn } from "@/lib/utils";
-import { 
+import {
   Play, 
   Pause, 
   RotateCcw, 
@@ -29,11 +28,9 @@ interface PreviewPanelProps {
 export function PreviewPanel({ 
   video, 
   background, 
-  onReset,
-  isProcessed 
+  isProcessed
 }: PreviewPanelProps) {
   const { t } = useLanguage();
-  const { toast } = useToast();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);

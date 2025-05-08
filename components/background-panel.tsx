@@ -2,7 +2,6 @@
 
 import { useLanguage } from '@/context/language-context';
 import { Background, presetBackgrounds, blurBackground } from '@/types/video';
-import { Card } from '@/components/ui/card';
 import { BackgroundUploader } from '@/components/background-uploader';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -26,7 +25,6 @@ export function BackgroundPanel({
       
       <ScrollArea className="h-[calc(100vh-16rem)] md:h-[calc(100vh-12rem)]">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-1">
-          {/* No Background */}
           <button
             onClick={() => onBackgroundChange(null)}
             className={cn(
@@ -42,7 +40,6 @@ export function BackgroundPanel({
             </div>
           </button>
 
-          {/* Blur Background */}
           <button
             onClick={() => onBackgroundChange(blurBackground)}
             className={cn(
@@ -58,7 +55,6 @@ export function BackgroundPanel({
             </div>
           </button>
 
-          {/* Preset Backgrounds */}
           {presetBackgrounds.map((background) => (
             <button
               key={background.id}

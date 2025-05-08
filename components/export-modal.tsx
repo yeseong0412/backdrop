@@ -63,7 +63,7 @@ export function ExportModal({
     setExportedUrl(null);
 
     try {
-      const { url, progress } = await exportVideo(
+      const { url } = await exportVideo(
         video,
         processingOptions.background,
         exportOptions,
@@ -95,11 +95,9 @@ export function ExportModal({
     if (!exportedUrl) return;
 
     try {
-      // Fetch the video data
       const response = await fetch(exportedUrl);
       const blob = await response.blob();
       
-      // Create a download link
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -107,7 +105,6 @@ export function ExportModal({
       document.body.appendChild(a);
       a.click();
       
-      // Clean up
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
       
@@ -250,17 +247,8 @@ export function ExportModal({
             disabled={!exportedUrl || exporting}
             className="w-full sm:w-auto"
           >
-            {exporting ? (
-              <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                {t("export.exporting")}
-              </>
-            ) : (
-              <>
-                <Download className="h-4 w-4 mr-2" />
-                {t("export.download")}
-              </>
-            )}
+            <Download className="h-4 w-4 mr-2" />
+            {t("export.download")}
           </Button>
           <Button
             onClick={handleExport}
@@ -269,14 +257,11 @@ export function ExportModal({
           >
             {exporting ? (
               <>
-                <Progress value={exportProgress} className="w-24 mr-2" />
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                 {t("export.exporting")}
               </>
             ) : (
-              <>
-                <FileVideo className="h-4 w-4 mr-2" />
-                {t("export.export")}
-              </>
+              t("export.export")
             )}
           </Button>
         </DialogFooter>

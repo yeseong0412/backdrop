@@ -9,7 +9,6 @@ import { Progress } from "@/components/ui/progress";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Upload, FileVideo, X } from "lucide-react";
-import { useToast } from '@/components/ui/use-toast';
 
 interface VideoUploaderProps {
   onVideoUploaded: (video: VideoFile) => void;
@@ -25,13 +24,11 @@ export function VideoUploader({ onVideoUploaded }: VideoUploaderProps) {
     const file = acceptedFiles[0];
     if (!file) return;
 
-    // Validate file type
     if (!file.type.startsWith('video/')) {
       setError(t("upload.error.invalidType"));
       return;
     }
 
-    // Validate file size (max 100MB)
     if (file.size > 100 * 1024 * 1024) {
       setError(t("upload.error.tooLarge"));
       return;
@@ -41,7 +38,6 @@ export function VideoUploader({ onVideoUploaded }: VideoUploaderProps) {
     setError(null);
 
     try {
-      // Simulate upload progress
       const interval = setInterval(() => {
         setUploadProgress(prev => {
           if (prev >= 90) {
@@ -52,28 +48,24 @@ export function VideoUploader({ onVideoUploaded }: VideoUploaderProps) {
         });
       }, 200);
 
-      // Create video URL
       const videoUrl = URL.createObjectURL(file);
 
-      // Simulate upload completion
       setTimeout(() => {
         clearInterval(interval);
         setUploadProgress(100);
         
-        // Create video file object
         const video: VideoFile = {
           file,
           url: videoUrl,
           name: file.name,
           size: file.size,
           type: file.type,
-          duration: 0, // Will be set when video is loaded
-          width: 0, // Will be set when video is loaded
-          height: 0, // Will be set when video is loaded
+          duration: 0,
+          width: 0,
+          height: 0,
           format: file.type.split('/')[1] || 'mp4'
         };
 
-        // Create video element to get duration
         const videoElement = document.createElement('video');
         videoElement.src = videoUrl;
         videoElement.onloadedmetadata = () => {

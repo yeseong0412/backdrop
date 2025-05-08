@@ -1,15 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { VideoUploader } from "@/components/video-uploader";
 import { BackgroundPanel } from "@/components/background-panel";
 import { PreviewPanel } from "@/components/preview-panel";
-import { ExportPanel } from "@/components/export-options";
 import { useLanguage } from "@/context/language-context";
 import { VideoFile, Background, ProcessingOptions } from "@/types/video";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 
@@ -34,15 +32,6 @@ export default function Home() {
     setProcessingOptions(prev => ({ ...prev, background }));
     setIsProcessed(true);
     setActiveTab("preview");
-  };
-
-  const handleQualityChange = (quality: "low" | "medium" | "high") => {
-    setProcessingOptions(prev => ({ ...prev, quality }));
-  };
-
-  const handleProcessingComplete = () => {
-    setIsProcessed(true);
-    setActiveTab("export");
   };
 
   return (
