@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Backdrop - AI Video Background Changer',
   description: 'Transform your videos with AI-powered background removal and replacement. Upload, change backgrounds, and export in seconds. Perfect for content creators, marketers, and professionals.',
-  keywords: 'video background changer, AI video editor, background removal, video editing, content creation, video background replacement, AI video processing',
+  keywords: ['video background changer', 'AI video editor', 'background removal', 'video editing', 'content creation', 'video background replacement', 'AI video processing'],
   authors: [{ name: 'Backdrop Team' }],
   creator: 'Backdrop',
   publisher: 'Backdrop',
@@ -21,11 +21,12 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://backdrop.app'),
+  metadataBase: new URL('https://backdrop.kro.kr'),
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://backdrop.app',
+    locale: 'ko_KR',
+    alternateLocale: 'en_US',
+    url: 'https://backdrop.kro.kr',
     title: 'Backdrop - AI Video Background Changer',
     description: 'Transform your videos with AI-powered background removal and replacement. Upload, change backgrounds, and export in seconds.',
     siteName: 'Backdrop',
@@ -59,6 +60,13 @@ export const metadata: Metadata = {
   verification: {
     google: 'your-google-site-verification',
   },
+  alternates: {
+    languages: {
+      'en-US': '/en',
+      'ko-KR': '/ko',
+    },
+    canonical: 'https://backdrop.kro.kr',
+  },
 };
 
 export default function RootLayout({
@@ -86,13 +94,17 @@ export default function RootLayout({
     ],
     "browserRequirements": "Requires JavaScript. Requires HTML5.",
     "permissions": "camera",
-    "softwareVersion": "1.0.0"
+    "softwareVersion": "1.0.0",
+    "inLanguage": ["en-US", "ko-KR"]
   };
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning>
       <head>
-        <link rel="canonical" href="https://backdrop.app" />
+        <link rel="canonical" href="https://backdrop.kro.kr" />
+        <link rel="alternate" hrefLang="en-US" href="https://backdrop.kro.kr/en" />
+        <link rel="alternate" hrefLang="ko-KR" href="https://backdrop.kro.kr/ko" />
+        <link rel="alternate" hrefLang="x-default" href="https://backdrop.kro.kr" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
