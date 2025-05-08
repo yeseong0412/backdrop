@@ -15,7 +15,9 @@ import {
   RotateCcw, 
   Download,
   Maximize2,
-  Minimize2
+  Minimize2,
+  Minus,
+  Plus
 } from "lucide-react";
 
 interface PreviewPanelProps {
@@ -38,6 +40,7 @@ export function PreviewPanel({
   const [progress, setProgress] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [videoSize, setVideoSize] = useState(75);
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -91,6 +94,13 @@ export function PreviewPanel({
     }
   };
 
+  const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    if (value >= 50 && value <= 90) {
+      setVideoSize(value);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
@@ -112,16 +122,34 @@ export function PreviewPanel({
         
         {/* Video Layer */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <video
-            ref={videoRef}
-            src={video.url}
-            className="w-full h-full object-contain"
-            playsInline
-          />
+          <div style={{ width: `${videoSize}%`, height: `${videoSize}%` }}>
+            <video
+              ref={videoRef}
+              src={video.url}
+              className="w-full h-full object-contain"
+              playsInline
+            />
+          </div>
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-4">
+        <div className="flex items-center gap-4">
+          <Minus className="h-4 w-4 text-muted-foreground" />
+          <input
+            type="range"
+            min="50"
+            max="90"
+            value={videoSize}
+            onChange={handleSizeChange}
+            className="flex-1"
+          />
+          <Plus className="h-4 w-4 text-muted-foreground" />
+          <span className="text-sm text-muted-foreground w-12 text-right">
+            {videoSize}%
+          </span>
+        </div>
+
         <Progress value={progress} className="h-2" />
         
         <div className="flex items-center justify-between gap-2">
@@ -177,7 +205,11 @@ export function PreviewPanel({
         isOpen={isExportModalOpen}
         onClose={() => setIsExportModalOpen(false)}
         video={video}
-        processingOptions={{ background, quality: 'high' }}
+        processingOptions={{ 
+          background, 
+          quality: 'high',
+          videoSize 
+        }}
         isProcessed={isProcessed}
       />
     </div>

@@ -68,7 +68,8 @@ export function ExportModal({
         exportOptions,
         (progress) => {
           setExportProgress(progress);
-        }
+        },
+        processingOptions.videoSize
       );
 
       setExportedUrl(url);

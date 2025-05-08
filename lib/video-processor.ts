@@ -13,7 +13,8 @@ export async function processVideoWithBackground(
   video: HTMLVideoElement,
   background: Background | null,
   quality: 'low' | 'medium' | 'high',
-  resolution: '480p' | '720p' | '1080p' = '1080p'
+  resolution: '480p' | '720p' | '1080p' = '1080p',
+  videoSize: number = 75
 ): Promise<string> {
   return new Promise(async (resolve) => {
     // Set canvas size based on resolution
@@ -82,25 +83,25 @@ export async function processVideoWithBackground(
         ctx.drawImage(bgImage, 0, 0, width, height);
       }
 
-      // Calculate video size to maintain aspect ratio
+      // Calculate video size while maintaining aspect ratio
       const videoAspectRatio = tempVideo.videoWidth / tempVideo.videoHeight;
       const canvasAspectRatio = width / height;
       
-      let drawWidth, drawHeight, offsetX, offsetY;
+      let drawWidth, drawHeight;
       
       if (videoAspectRatio > canvasAspectRatio) {
         // Video is wider than canvas
-        drawWidth = width;
-        drawHeight = width / videoAspectRatio;
-        offsetX = 0;
-        offsetY = (height - drawHeight) / 2;
+        drawWidth = width * (videoSize / 100);
+        drawHeight = drawWidth / videoAspectRatio;
       } else {
         // Video is taller than canvas
-        drawHeight = height;
-        drawWidth = height * videoAspectRatio;
-        offsetX = (width - drawWidth) / 2;
-        offsetY = 0;
+        drawHeight = height * (videoSize / 100);
+        drawWidth = drawHeight * videoAspectRatio;
       }
+      
+      // Calculate position to center the video
+      const offsetX = (width - drawWidth) / 2;
+      const offsetY = (height - drawHeight) / 2;
 
       // Draw video frame
       ctx.drawImage(tempVideo, offsetX, offsetY, drawWidth, drawHeight);
@@ -173,7 +174,8 @@ export async function exportVideo(
   video: VideoFile,
   background: Background | null,
   options: ExportOptions,
-  onProgress: (progress: number) => void
+  onProgress: (progress: number) => void,
+  videoSize: number = 75
 ): Promise<{ url: string; progress: number }> {
   return new Promise(async (resolve) => {
     let progress = 0;
@@ -193,7 +195,8 @@ export async function exportVideo(
         tempVideo,
         background,
         options.quality,
-        options.resolution
+        options.resolution,
+        videoSize
       );
       
       // Update progress

@@ -21,6 +21,7 @@ export default function Home() {
   const [processingOptions, setProcessingOptions] = useState<ProcessingOptions>({
     background: null,
     quality: 'medium',
+    videoSize: 75,
   });
   const [isProcessed, setIsProcessed] = useState(false);
 

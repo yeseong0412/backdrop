@@ -21,6 +21,7 @@ export interface Background {
 export interface ProcessingOptions {
   background: Background | null;
   quality: 'low' | 'medium' | 'high';
+  videoSize: number;
 }
 
 export interface ExportOptions {
