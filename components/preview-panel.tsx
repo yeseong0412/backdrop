@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { useLanguage } from "@/context/language-context";
 import { VideoFile, Background } from "@/types/video";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/components/ui/use-toast";
 import { ExportModal } from "@/components/export-modal";
@@ -102,8 +101,8 @@ export function PreviewPanel({
   };
 
   return (
-    <div className="space-y-4">
-      <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+    <div className="space-y-4 md:space-y-6">
+      <div className="relative aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
         {/* Background Layer */}
         {background && (
           <div
@@ -133,32 +132,39 @@ export function PreviewPanel({
         </div>
       </div>
 
-      <div className="space-y-4">
-        <div className="flex items-center gap-4">
-          <Minus className="h-4 w-4 text-muted-foreground" />
-          <input
-            type="range"
-            min="50"
-            max="90"
-            value={videoSize}
-            onChange={handleSizeChange}
-            className="flex-1"
-          />
-          <Plus className="h-4 w-4 text-muted-foreground" />
-          <span className="text-sm text-muted-foreground w-12 text-right">
-            {videoSize}%
-          </span>
+      <div className="space-y-4 p-4 bg-card rounded-lg shadow-sm">
+        <div className="flex flex-col space-y-2">
+          <div className="flex items-center justify-between">
+            <label className="text-sm font-medium text-muted-foreground">
+              {t("preview.size")}
+            </label>
+            <span className="text-sm text-muted-foreground">
+              {videoSize}%
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Minus className="h-4 w-4 text-muted-foreground" />
+            <input
+              type="range"
+              min="50"
+              max="90"
+              value={videoSize}
+              onChange={handleSizeChange}
+              className="flex-1 h-2 bg-secondary rounded-full appearance-none cursor-pointer"
+            />
+            <Plus className="h-4 w-4 text-muted-foreground" />
+          </div>
         </div>
 
         <Progress value={progress} className="h-2" />
         
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
               size="icon"
               onClick={togglePlay}
-              className="h-8 w-8"
+              className="h-9 w-9"
             >
               {isPlaying ? (
                 <Pause className="h-4 w-4" />
@@ -171,7 +177,7 @@ export function PreviewPanel({
               variant="outline"
               size="icon"
               onClick={handleReset}
-              className="h-8 w-8"
+              className="h-9 w-9"
             >
               <RotateCcw className="h-4 w-4" />
             </Button>
@@ -180,7 +186,7 @@ export function PreviewPanel({
               variant="outline"
               size="icon"
               onClick={toggleFullscreen}
-              className="h-8 w-8"
+              className="h-9 w-9"
             >
               {isFullscreen ? (
                 <Minimize2 className="h-4 w-4" />
@@ -194,6 +200,7 @@ export function PreviewPanel({
             variant="outline"
             onClick={() => setIsExportModalOpen(true)}
             disabled={!isProcessed}
+            className="w-full sm:w-auto"
           >
             <Download className="h-4 w-4 mr-2" />
             {t("export.title")}

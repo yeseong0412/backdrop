@@ -27,17 +27,13 @@ export default function Home() {
 
   const handleVideoUploaded = (uploadedVideo: VideoFile) => {
     setVideo(uploadedVideo);
-    if (!isMobile) {
-      setActiveTab("backgrounds");
-    }
+    setActiveTab("backgrounds");
   };
 
   const handleBackgroundChange = (background: Background | null) => {
     setProcessingOptions(prev => ({ ...prev, background }));
     setIsProcessed(true);
-    if (!isMobile) {
-      setActiveTab("preview");
-    }
+    setActiveTab("preview");
   };
 
   const handleQualityChange = (quality: "low" | "medium" | "high") => {
@@ -46,9 +42,7 @@ export default function Home() {
 
   const handleProcessingComplete = () => {
     setIsProcessed(true);
-    if (!isMobile) {
-      setActiveTab("export");
-    }
+    setActiveTab("export");
   };
 
   return (
@@ -71,34 +65,46 @@ export default function Home() {
           >
             <TabsList className={cn(
               "grid w-full",
-              isMobile ? "grid-cols-1 gap-2" : "grid-cols-3"
+              isMobile ? "grid-cols-3 gap-1" : "grid-cols-3 gap-2"
             )}>
-              <TabsTrigger value="upload" className="w-full">
+              <TabsTrigger 
+                value="upload" 
+                className={cn(
+                  "w-full text-xs md:text-sm",
+                  isMobile && "px-2 py-1.5"
+                )}
+              >
                 {t("common.upload")}
               </TabsTrigger>
               <TabsTrigger 
                 value="backgrounds" 
                 disabled={!video}
-                className="w-full"
+                className={cn(
+                  "w-full text-xs md:text-sm",
+                  isMobile && "px-2 py-1.5"
+                )}
               >
                 {t("common.backgrounds")}
               </TabsTrigger>
               <TabsTrigger 
                 value="preview" 
                 disabled={!video}
-                className="w-full"
+                className={cn(
+                  "w-full text-xs md:text-sm",
+                  isMobile && "px-2 py-1.5"
+                )}
               >
                 {t("common.preview")}
               </TabsTrigger>
             </TabsList>
             
-            <TabsContent value="upload" className="space-y-4 md:space-y-6">
+            <TabsContent value="upload" className="mt-0">
               <div className="w-full">
                 <VideoUploader onVideoUploaded={handleVideoUploaded} />
               </div>
             </TabsContent>
             
-            <TabsContent value="backgrounds" className="space-y-4 md:space-y-6">
+            <TabsContent value="backgrounds" className="mt-0">
               <div className="w-full">
                 <BackgroundPanel
                   onBackgroundChange={handleBackgroundChange}
@@ -107,7 +113,7 @@ export default function Home() {
               </div>
             </TabsContent>
             
-            <TabsContent value="preview" className="space-y-4 md:space-y-6">
+            <TabsContent value="preview" className="mt-0">
               <div className="w-full">
                 <PreviewPanel
                   video={video!}

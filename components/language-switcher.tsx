@@ -16,7 +16,6 @@ export function LanguageSwitcher() {
       variant="ghost"
       size="icon"
       onClick={toggleLanguage}
-      className="fixed top-4 right-4"
     >
       <Globe className="h-4 w-4" />
       <span className="sr-only">

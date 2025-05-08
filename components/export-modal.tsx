@@ -25,6 +25,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import { exportVideo } from "@/lib/video-processor";
 
@@ -133,105 +134,107 @@ export function ExportModal({
             {t("export.description")}
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid gap-2">
-            <label className="text-sm font-medium">
-              {t("export.format")}
-            </label>
-            <Select
-              value={exportOptions.format}
-              onValueChange={(value) =>
-                setExportOptions({
-                  ...exportOptions,
-                  format: value as "mp4" | "gif",
-                })
-              }
-              disabled={exporting}
-            >
-              <SelectTrigger>
-                <SelectValue>
-                  {exportOptions.format === "mp4" ? (
+        <div className="grid gap-6 py-4">
+          <div className="grid gap-4">
+            <div className="grid gap-2">
+              <label className="text-sm font-medium">
+                {t("export.format")}
+              </label>
+              <Select
+                value={exportOptions.format}
+                onValueChange={(value) =>
+                  setExportOptions({
+                    ...exportOptions,
+                    format: value as "mp4" | "gif",
+                  })
+                }
+                disabled={exporting}
+              >
+                <SelectTrigger>
+                  <SelectValue>
+                    {exportOptions.format === "mp4" ? (
+                      <div className="flex items-center">
+                        <FileVideo className="h-4 w-4 mr-2" />
+                        MP4
+                      </div>
+                    ) : (
+                      <div className="flex items-center">
+                        <Image className="h-4 w-4 mr-2" />
+                        GIF
+                      </div>
+                    )}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="mp4">
                     <div className="flex items-center">
                       <FileVideo className="h-4 w-4 mr-2" />
                       MP4
                     </div>
-                  ) : (
+                  </SelectItem>
+                  <SelectItem value="gif">
                     <div className="flex items-center">
                       <Image className="h-4 w-4 mr-2" />
                       GIF
                     </div>
-                  )}
-                </SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="mp4">
-                  <div className="flex items-center">
-                    <FileVideo className="h-4 w-4 mr-2" />
-                    MP4
-                  </div>
-                </SelectItem>
-                <SelectItem value="gif">
-                  <div className="flex items-center">
-                    <Image className="h-4 w-4 mr-2" />
-                    GIF
-                  </div>
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-          <div className="grid gap-2">
-            <label className="text-sm font-medium">
-              {t("export.quality")}
-            </label>
-            <Select
-              value={exportOptions.quality}
-              onValueChange={(value) =>
-                setExportOptions({
-                  ...exportOptions,
-                  quality: value as "low" | "medium" | "high",
-                })
-              }
-              disabled={exporting}
-            >
-              <SelectTrigger>
-                <SelectValue>{t(`export.${exportOptions.quality}`)}</SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="low">{t("export.low")}</SelectItem>
-                <SelectItem value="medium">{t("export.medium")}</SelectItem>
-                <SelectItem value="high">{t("export.high")}</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+            <div className="grid gap-2">
+              <label className="text-sm font-medium">
+                {t("export.quality")}
+              </label>
+              <Select
+                value={exportOptions.quality}
+                onValueChange={(value) =>
+                  setExportOptions({
+                    ...exportOptions,
+                    quality: value as "low" | "medium" | "high",
+                  })
+                }
+                disabled={exporting}
+              >
+                <SelectTrigger>
+                  <SelectValue>{t(`export.${exportOptions.quality}`)}</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="low">{t("export.low")}</SelectItem>
+                  <SelectItem value="medium">{t("export.medium")}</SelectItem>
+                  <SelectItem value="high">{t("export.high")}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-          <div className="grid gap-2">
-            <label className="text-sm font-medium">
-              {t("export.resolution")}
-            </label>
-            <Select
-              value={exportOptions.resolution}
-              onValueChange={(value) =>
-                setExportOptions({
-                  ...exportOptions,
-                  resolution: value as "480p" | "720p" | "1080p",
-                })
-              }
-              disabled={exporting}
-            >
-              <SelectTrigger>
-                <SelectValue>{exportOptions.resolution}</SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="480p">480p</SelectItem>
-                <SelectItem value="720p">720p</SelectItem>
-                <SelectItem value="1080p">1080p</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="grid gap-2">
+              <label className="text-sm font-medium">
+                {t("export.resolution")}
+              </label>
+              <Select
+                value={exportOptions.resolution}
+                onValueChange={(value) =>
+                  setExportOptions({
+                    ...exportOptions,
+                    resolution: value as "480p" | "720p" | "1080p",
+                  })
+                }
+                disabled={exporting}
+              >
+                <SelectTrigger>
+                  <SelectValue>{exportOptions.resolution}</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="480p">480p</SelectItem>
+                  <SelectItem value="720p">720p</SelectItem>
+                  <SelectItem value="1080p">1080p</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           {exporting && (
-            <div className="grid gap-2 mt-2">
+            <div className="grid gap-2">
               <div className="flex justify-between text-sm">
                 <span>{t("common.processing")}</span>
                 <span>{exportProgress}%</span>
@@ -240,11 +243,12 @@ export function ExportModal({
             </div>
           )}
         </div>
-        <div className="flex justify-between">
+        <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0">
           <Button
             variant="outline"
             onClick={handleDownload}
             disabled={!exportedUrl || exporting}
+            className="w-full sm:w-auto"
           >
             {exporting ? (
               <>
@@ -261,6 +265,7 @@ export function ExportModal({
           <Button
             onClick={handleExport}
             disabled={!video || !isProcessed || exporting}
+            className="w-full sm:w-auto"
           >
             {exporting ? (
               <>
@@ -274,7 +279,7 @@ export function ExportModal({
               </>
             )}
           </Button>
-        </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

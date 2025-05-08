@@ -100,61 +100,61 @@ export function VideoUploader({ onVideoUploaded }: VideoUploaderProps) {
   });
 
   return (
-    <Card className="p-4 md:p-6">
+    <Card className="p-2 md:p-4">
       <div
         {...getRootProps()}
         className={cn(
-          "border-2 border-dashed rounded-lg p-6 md:p-8 text-center cursor-pointer transition-colors",
+          "border-2 border-dashed rounded-lg p-4 md:p-6 text-center cursor-pointer transition-colors",
           isDragActive ? "border-primary bg-primary/5" : "border-muted-foreground/25",
           isUploading && "opacity-50 cursor-not-allowed"
         )}
       >
         <input {...getInputProps()} />
         
-        <div className="flex flex-col items-center gap-4">
-          <div className="p-3 rounded-full bg-primary/10">
+        <div className="flex flex-col items-center gap-3 md:gap-4">
+          <div className="p-2 md:p-3 rounded-full bg-primary/10">
             {isUploading ? (
-              <FileVideo className="h-6 w-6 text-primary" />
+              <FileVideo className="h-5 w-5 md:h-6 md:w-6 text-primary" />
             ) : (
-              <Upload className="h-6 w-6 text-primary" />
+              <Upload className="h-5 w-5 md:h-6 md:w-6 text-primary" />
             )}
           </div>
           
-          <div className="space-y-2">
-            <h3 className="text-lg font-semibold">
+          <div className="space-y-1 md:space-y-2">
+            <h3 className="text-base md:text-lg font-semibold">
               {isUploading ? t("upload.uploading") : t("upload.title")}
             </h3>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs md:text-sm text-muted-foreground">
               {t("upload.description")}
             </p>
           </div>
 
           {!isUploading && (
-            <Button variant="outline" className="mt-2">
+            <Button variant="outline" className="mt-1 md:mt-2 h-8 md:h-10 px-3 md:px-4 text-sm">
               {t("upload.selectFile")}
             </Button>
           )}
         </div>
 
         {isUploading && (
-          <div className="mt-4 space-y-2">
-            <Progress value={uploadProgress} className="h-2" />
-            <p className="text-sm text-muted-foreground">
+          <div className="mt-3 md:mt-4 space-y-1 md:space-y-2">
+            <Progress value={uploadProgress} className="h-1 md:h-2" />
+            <p className="text-xs md:text-sm text-muted-foreground">
               {uploadProgress}%
             </p>
           </div>
         )}
 
         {error && (
-          <div className="mt-4 p-3 bg-destructive/10 text-destructive rounded-md flex items-center justify-between">
-            <span className="text-sm">{error}</span>
+          <div className="mt-3 md:mt-4 p-2 md:p-3 bg-destructive/10 text-destructive rounded-md flex items-center justify-between">
+            <span className="text-xs md:text-sm">{error}</span>
             <Button
               variant="ghost"
               size="icon"
-              className="h-6 w-6"
+              className="h-5 w-5 md:h-6 md:w-6"
               onClick={() => setError(null)}
             >
-              <X className="h-4 w-4" />
+              <X className="h-3 w-3 md:h-4 md:w-4" />
             </Button>
           </div>
         )}

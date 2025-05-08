@@ -24,8 +24,8 @@ export function BackgroundPanel({
       
       <BackgroundUploader onBackgroundUploaded={onBackgroundChange} />
       
-      <ScrollArea className="h-[calc(100vh-12rem)]">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-1">
+      <ScrollArea className="h-[calc(100vh-16rem)] md:h-[calc(100vh-12rem)]">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-1">
           {/* No Background */}
           <button
             onClick={() => onBackgroundChange(null)}
@@ -71,9 +71,10 @@ export function BackgroundPanel({
               <img
                 src={background.url}
                 alt={background.name}
-                className="w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-white text-sm font-medium">
                   {background.name}
                 </span>
