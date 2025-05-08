@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: 'Backdrop',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/backdrop.png',
         width: 1200,
         height: 630,
         alt: 'Backdrop - AI Video Background Changer',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Backdrop - AI Video Background Changer',
     description: 'Transform your videos with AI-powered background removal and replacement. Upload, change backgrounds, and export in seconds.',
-    images: ['/twitter-image.jpg'],
+    images: ['/backdrop.png'],
     creator: '@backdrop',
   },
   robots: {

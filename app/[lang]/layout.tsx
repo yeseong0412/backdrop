@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
       siteName: 'Backdrop',
       images: [
         {
-          url: '/og-image.jpg',
+          url: '/backdrop.png',
           width: 1200,
           height: 630,
           alt: isKorean ? '백드롭 - AI 비디오 배경 변경기' : 'Backdrop - AI Video Background Changer',
@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: { params: { lang: string } })
       description: isKorean
         ? 'AI 기반 비디오 배경 제거 및 교체로 비디오를 변환하세요. 업로드, 배경 변경, 그리고 몇 초 만에 내보내기.'
         : 'Transform your videos with AI-powered background removal and replacement. Upload, change backgrounds, and export in seconds.',
-      images: ['/twitter-image.jpg'],
+      images: ['/backdrop.png'],
       creator: '@backdrop',
     },
     robots: {
@@ -139,6 +139,7 @@ export default function RootLayout({
         <meta name="application-name" content="Backdrop" />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <Script
           id="structured-data"
           type="application/ld+json"
