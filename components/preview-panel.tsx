@@ -4,16 +4,12 @@ import { useState, useRef, useEffect } from "react";
 import { useLanguage } from "@/context/language-context";
 import { VideoFile, Background } from "@/types/video";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { useToast } from "@/components/ui/use-toast";
 import { ExportModal } from "@/components/export-modal";
 import {
   Play, 
   Pause, 
   RotateCcw, 
   Download,
-  Maximize2,
-  Minimize2,
   Minus,
   Plus
 } from "lucide-react";

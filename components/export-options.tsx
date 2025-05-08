@@ -8,12 +8,8 @@ import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import {
   Download,
-  Share2,
-  Copy,
   FileVideo,
-  Loader2,
-  Check,
-  Image,
+  Loader2
 } from "lucide-react";
 import {
   Select,
@@ -25,12 +21,8 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { exportVideo } from "@/lib/video-processor";
 
 interface ExportPanelProps {
@@ -54,8 +46,6 @@ export function ExportPanel({
   const [exporting, setExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
   const [exportedUrl, setExportedUrl] = useState<string | null>(null);
-  const [shareLink, setShareLink] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
 
   const handleExport = async () => {
     if (!video || !isProcessed) return;
@@ -65,7 +55,7 @@ export function ExportPanel({
     setExportedUrl(null);
 
     try {
-      const { url, progress } = await exportVideo(
+      const { url } = await exportVideo(
         video,
         processingOptions.background,
         exportOptions,
@@ -124,22 +114,6 @@ export function ExportPanel({
         variant: "destructive",
       });
     }
-  };
-
-  const handleCopyLink = () => {
-    if (!shareLink) return;
-
-    navigator.clipboard.writeText(shareLink);
-    setCopied(true);
-    
-    toast({
-      title: t("export.linkCopied"),
-      description: shareLink,
-    });
-    
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
   };
 
   return (
