@@ -65,7 +65,7 @@ export const en = {
     complete: 'Export complete',
     error: 'Export failed',
     mp4: 'MP4 Video',
-    gif: 'GIF Animation',
+    mov: 'MOV Video',
     copyLink: 'Copy Link',
     linkCopied: 'Link copied to clipboard',
   },

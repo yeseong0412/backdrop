@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['backdrop.app'],
+    domains: ['backdrop.app', 'images.unsplash.com'],
     formats: ['image/avif', 'image/webp'],
   },
   experimental: {

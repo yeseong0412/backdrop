@@ -25,7 +25,7 @@ export interface ProcessingOptions {
 }
 
 export interface ExportOptions {
-  format: 'mp4' | 'gif';
+  format: 'mp4' | 'mov';
   quality: 'low' | 'medium' | 'high';
   resolution: '480p' | '720p' | '1080p';
 }

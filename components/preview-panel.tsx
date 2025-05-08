@@ -34,9 +34,9 @@ export function PreviewPanel({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [videoSize, setVideoSize] = useState(75);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -80,21 +80,35 @@ export function PreviewPanel({
     }
   };
 
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      videoRef.current?.requestFullscreen();
-      setIsFullscreen(true);
-    } else {
-      document.exitFullscreen();
-      setIsFullscreen(false);
-    }
-  };
-
   const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     if (value >= 50 && value <= 90) {
       setVideoSize(value);
     }
+  };
+
+  const handleTimelineClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!videoRef.current) return;
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = (x / rect.width) * 100;
+    const newTime = (percentage / 100) * videoRef.current.duration;
+    
+    videoRef.current.currentTime = newTime;
+    setProgress(percentage);
+  };
+
+  const handleTimelineDrag = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging || !videoRef.current) return;
+    
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+    const percentage = (x / rect.width) * 100;
+    const newTime = (percentage / 100) * videoRef.current.duration;
+    
+    videoRef.current.currentTime = newTime;
+    setProgress(percentage);
   };
 
   return (
@@ -153,7 +167,23 @@ export function PreviewPanel({
           </div>
         </div>
 
-        <Progress value={progress} className="h-2" />
+        <div 
+          className="relative h-2 bg-secondary rounded-full cursor-pointer"
+          onClick={handleTimelineClick}
+          onMouseDown={() => setIsDragging(true)}
+          onMouseUp={() => setIsDragging(false)}
+          onMouseLeave={() => setIsDragging(false)}
+          onMouseMove={handleTimelineDrag}
+        >
+          <div 
+            className="absolute h-full bg-primary rounded-full"
+            style={{ width: `${progress}%` }}
+          />
+          <div 
+            className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-primary rounded-full -ml-2"
+            style={{ left: `${progress}%` }}
+          />
+        </div>
         
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
@@ -177,19 +207,6 @@ export function PreviewPanel({
               className="h-9 w-9"
             >
               <RotateCcw className="h-4 w-4" />
-            </Button>
-
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={toggleFullscreen}
-              className="h-9 w-9"
-            >
-              {isFullscreen ? (
-                <Minimize2 className="h-4 w-4" />
-              ) : (
-                <Maximize2 className="h-4 w-4" />
-              )}
             </Button>
           </div>
 

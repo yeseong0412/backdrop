@@ -155,7 +155,7 @@ export function ExportPanel({
               onValueChange={(value) =>
                 setExportOptions({
                   ...exportOptions,
-                  format: value as "mp4" | "gif",
+                  format: value as "mp4" | "mov",
                 })
               }
               disabled={exporting}
@@ -169,8 +169,8 @@ export function ExportPanel({
                     </div>
                   ) : (
                     <div className="flex items-center">
-                      <Image className="h-4 w-4 mr-2" />
-                      GIF
+                      <FileVideo className="h-4 w-4 mr-2" />
+                      MOV
                     </div>
                   )}
                 </SelectValue>
@@ -182,10 +182,10 @@ export function ExportPanel({
                     MP4
                   </div>
                 </SelectItem>
-                <SelectItem value="gif">
+                <SelectItem value="mov">
                   <div className="flex items-center">
-                    <Image className="h-4 w-4 mr-2" />
-                    GIF
+                    <FileVideo className="h-4 w-4 mr-2" />
+                    MOV
                   </div>
                 </SelectItem>
               </SelectContent>
