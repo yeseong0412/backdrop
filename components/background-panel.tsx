@@ -5,6 +5,7 @@ import { Background, presetBackgrounds, blurBackground } from '@/types/video';
 import { BackgroundUploader } from '@/components/background-uploader';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import Image from 'next/image';
 
 interface BackgroundPanelProps {
   selectedBackground: Background | null;
@@ -55,7 +56,7 @@ export function BackgroundPanel({
             </div>
           </button>
 
-          {presetBackgrounds.map((background) => (
+          {presetBackgrounds.map((background, index) => (
             <button
               key={background.id}
               onClick={() => onBackgroundChange(background)}
@@ -64,10 +65,12 @@ export function BackgroundPanel({
                 selectedBackground?.id === background.id ? "border-primary" : "border-transparent hover:border-primary/50"
               )}
             >
-              <img
+              <Image
                 src={background.url}
-                alt={background.name}
-                className="absolute inset-0 w-full h-full object-cover"
+                alt={`Background option ${index + 1}`}
+                width={200}
+                height={112}
+                className="w-full h-full object-cover rounded-lg"
               />
               <div className="absolute inset-0 bg-black/40" />
               <div className="absolute inset-0 flex items-center justify-center">
