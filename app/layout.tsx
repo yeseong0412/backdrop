@@ -9,6 +9,9 @@ import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 
+const SITE_URL = 'https://backdrop-topaz.vercel.app';
+const OG_IMAGE_URL = `${SITE_URL}/backdrop.png`;
+
 export const metadata: Metadata = {
   title: 'Backdrop - AI Video Background Changer',
   description: 'Transform your videos with AI-powered background removal and replacement. Upload, change backgrounds, and export in seconds. Perfect for content creators, marketers, and professionals.',
@@ -21,18 +24,18 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://backdrop.kro.kr'),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
     alternateLocale: 'en_US',
-    url: 'https://backdrop.kro.kr',
+    url: SITE_URL,
     title: 'Backdrop - AI Video Background Changer',
     description: 'Transform your videos with AI-powered background removal and replacement. Upload, change backgrounds, and export in seconds.',
     siteName: 'Backdrop',
     images: [
       {
-        url: '/backdrop.png',
+        url: OG_IMAGE_URL,
         width: 1200,
         height: 630,
         alt: 'Backdrop - AI Video Background Changer',
@@ -43,7 +46,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Backdrop - AI Video Background Changer',
     description: 'Transform your videos with AI-powered background removal and replacement. Upload, change backgrounds, and export in seconds.',
-    images: ['/backdrop.png'],
+    images: [OG_IMAGE_URL],
     creator: '@backdrop',
   },
   robots: {
@@ -65,7 +68,7 @@ export const metadata: Metadata = {
       'en-US': '/en',
       'ko-KR': '/ko',
     },
-    canonical: 'https://backdrop.kro.kr',
+    canonical: SITE_URL,
   },
 };
 
@@ -101,10 +104,10 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
-        <link rel="canonical" href="https://backdrop.kro.kr" />
-        <link rel="alternate" hrefLang="en-US" href="https://backdrop.kro.kr/en" />
-        <link rel="alternate" hrefLang="ko-KR" href="https://backdrop.kro.kr/ko" />
-        <link rel="alternate" hrefLang="x-default" href="https://backdrop.kro.kr" />
+        <link rel="canonical" href={SITE_URL} />
+        <link rel="alternate" hrefLang="en-US" href={`${SITE_URL}/en`} />
+        <link rel="alternate" hrefLang="ko-KR" href={`${SITE_URL}/ko`} />
+        <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -113,7 +116,9 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="application-name" content="Backdrop" />
         <meta name="msapplication-TileColor" content="#000000" />
-        <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
+        <meta name="msapplication-TileImage" content={OG_IMAGE_URL} />
+        <meta property="og:image" content={OG_IMAGE_URL} />
+        <meta name="twitter:image" content={OG_IMAGE_URL} />
         <Script
           id="structured-data"
           type="application/ld+json"
